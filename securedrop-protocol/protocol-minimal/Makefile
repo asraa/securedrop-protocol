@@ -14,16 +14,17 @@ HAX_IMAGE = hax:$(HAX_VERSION)
 LIBCRUX_VERSION = $(shell cargo pkgid libcrux-traits 2>/dev/null | sed 's/.*@//')
 
 HAX_TARGETS := +**
-HAX_TARGETS += -securedrop_protocol_minimal::storage::**
+# Excludes server::storage too, but keeps the FPF setup step
 HAX_TARGETS += -securedrop_protocol_minimal::server::**
+HAX_TARGETS += +securedrop_protocol_minimal::server::setup::**
 # We keep in the `Client` trait which is used by the source and journalist modules
 # but keep out the other traits which don't extract
-HAX_TARGETS += -securedrop_protocol_minimal::api::**
-HAX_TARGETS += +securedrop_protocol_minimal::api::Client
+HAX_TARGETS += -securedrop_protocol_minimal::protocol::api::**
+HAX_TARGETS += +securedrop_protocol_minimal::protocol::api::Client
 
 # Admit modules we extract but that fail panic freedom:
-HAX_ADMITS := Securedrop_protocol_minimal.Message.fst
-HAX_ADMITS += Securedrop_protocol_minimal.Ciphertext.fst
+HAX_ADMITS := Securedrop_protocol_minimal.Crypto.Message.fst
+HAX_ADMITS += Securedrop_protocol_minimal.Protocol.Ciphertext.fst
 
 REPO_ROOT = $(shell git rev-parse --show-toplevel)
 PROOF_DIR = proofs/fstar/extraction
