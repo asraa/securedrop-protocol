@@ -9,6 +9,7 @@ extern crate alloc;
 
 pub mod api;
 mod ciphertext;
+pub mod crypto;
 pub mod keys;
 pub mod primitives;
 pub mod server;
@@ -40,7 +41,7 @@ pub use source::{Source, SourcePublicView};
 pub(crate) use keys::MessageKeyBundle;
 
 // Primitives for signing
-pub mod sign;
+pub use crypto::sign;
 pub use sign::{
     DomainTag, FpfOnNewsroom, JournalistEphemeralKey, JournalistLongTermKey, NewsroomOnJournalist,
     Signature, SigningKey, VerifyingKey,
@@ -49,8 +50,7 @@ pub use sign::{
 pub mod storage;
 
 pub mod encrypt_decrypt;
-pub mod message;
-pub mod metadata;
+pub use crypto::{message, metadata};
 
 // Do not make this module public or re-export it anywhere!
 /// It uses the [sealed trait pattern](https://rust-lang.github.io/api-guidelines/future-proofing.html#c-sealed)
