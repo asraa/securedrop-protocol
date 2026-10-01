@@ -7,18 +7,15 @@
 #![cfg_attr(all(not(hax), test), allow(clippy::disallowed_methods))]
 extern crate alloc;
 
-pub mod api;
-mod ciphertext;
 pub mod crypto;
-pub mod keys;
 pub mod primitives;
+pub mod protocol;
 pub mod server;
 pub mod setup;
-mod traits;
-pub mod wire;
 
-pub mod journalist;
-pub mod source;
+// Re-exported at their pre-reorg paths so downstream imports are unchanged.
+pub use protocol::{api, encrypt_decrypt, journalist, keys, source, wire};
+use protocol::{ciphertext, traits};
 
 pub use ciphertext::{Envelope, FetchResponse, Plaintext};
 
@@ -49,7 +46,6 @@ pub use sign::{
 
 pub mod storage;
 
-pub mod encrypt_decrypt;
 pub use crypto::{message, metadata};
 
 // Do not make this module public or re-export it anywhere!
