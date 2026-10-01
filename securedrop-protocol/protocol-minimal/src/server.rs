@@ -2,6 +2,9 @@
 //!
 //! This module implements the server-side handling of SecureDrop protocol steps 5-10.
 
+pub mod setup;
+pub mod storage;
+
 use alloc::vec::Vec;
 use anyhow::Error;
 use rand_core::{CryptoRng, RngCore};

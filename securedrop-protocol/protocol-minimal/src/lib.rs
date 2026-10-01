@@ -11,11 +11,11 @@ pub mod crypto;
 pub mod primitives;
 pub mod protocol;
 pub mod server;
-pub mod setup;
 
 // Re-exported at their pre-reorg paths so downstream imports are unchanged.
 pub use protocol::{api, encrypt_decrypt, journalist, keys, source, wire};
 use protocol::{ciphertext, traits};
+pub use server::{setup, storage};
 
 pub use ciphertext::{Envelope, FetchResponse, Plaintext};
 
@@ -43,8 +43,6 @@ pub use sign::{
     DomainTag, FpfOnNewsroom, JournalistEphemeralKey, JournalistLongTermKey, NewsroomOnJournalist,
     Signature, SigningKey, VerifyingKey,
 };
-
-pub mod storage;
 
 pub use crypto::{message, metadata};
 
